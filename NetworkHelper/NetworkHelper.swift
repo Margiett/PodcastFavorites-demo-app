@@ -9,7 +9,6 @@
 import Foundation
 class NetworkHelper {
     static let shared = NetworkHelper()
-    
     private var session: URLSession
     
     private init() {
@@ -25,12 +24,12 @@ class NetworkHelper {
                 completion(.failure(.networkClientError(error)))
                 return
             }
-            
+            // just incase we do not get a response
             guard let urlResponse = response as? HTTPURLResponse else {
                 completion(.failure(.noResponse))
                 return
             }
-            
+            // if we actually get data this would happen and since is a optional we check
             guard let data = data else {
                 completion(.failure(.noData))
                 return

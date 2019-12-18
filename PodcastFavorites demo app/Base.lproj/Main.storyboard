@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Podcast-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PodcastFavorites_demo_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PodcastViewController" customModule="PodcastFavorites_demo_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,22 +26,31 @@
                                     <constraint firstAttribute="height" constant="752" id="Mg5-bP-ccY"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="144" id="pJi-r0-CEh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="podcastCell" rowHeight="144" id="pJi-r0-CEh" customClass="PodcastCell" customModule="PodcastFavorites_demo_app" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="144"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pJi-r0-CEh" id="Aju-Yj-kSD">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pJi-r0-CEh" id="Aju-Yj-kSD" customClass="PodcastCell" customModule="PodcastFavorites_demo_app" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8a-5h-jaW">
-                                                    <rect key="frame" x="260" y="8" width="134" height="125"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mic.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="B8a-5h-jaW">
+                                                    <rect key="frame" x="20" y="8" width="134" height="125"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60o-yj-bpk">
+                                                    <rect key="frame" x="162" y="0.0" width="232" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="B8a-5h-jaW" firstAttribute="top" secondItem="Aju-Yj-kSD" secondAttribute="top" constant="8" id="BGA-qU-t6h"/>
-                                                <constraint firstAttribute="trailing" secondItem="B8a-5h-jaW" secondAttribute="trailing" constant="20" id="htg-nE-Q1G"/>
-                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="podcastImage" destination="B8a-5h-jaW" id="M4v-0p-0Z3"/>
+                                            <outlet property="podcastNameLabel" destination="60o-yj-bpk" id="pR8-VI-Klh"/>
+                                            <segue destination="l3h-11-Fz9" kind="show" id="5L1-d9-3Ex"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -57,17 +66,76 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="h0s-Hw-6Uj"/>
+                    <navigationItem key="navigationItem" title="Podcast" id="h0s-Hw-6Uj"/>
+                    <connections>
+                        <outlet property="searchBar" destination="6qD-q0-RuU" id="duZ-mk-dYD"/>
+                        <outlet property="tableView" destination="77z-Kc-8xj" id="QAs-9G-ZgS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1957.9710144927537" y="114.50892857142857"/>
         </scene>
-        <!--Item-->
+        <!--Podcast Details Controller-->
+        <scene sceneID="ubL-UD-xqt">
+            <objects>
+                <viewController id="l3h-11-Fz9" customClass="PodcastDetailsController" customModule="PodcastFavorites_demo_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dqf-b1-T7o">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mic.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-PL-5VH">
+                                <rect key="frame" x="20" y="161" width="374" height="311"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRq-5V-8ah">
+                                <rect key="frame" x="20" y="108" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWt-i5-4ld">
+                                <rect key="frame" x="20" y="510" width="374" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxF-To-hAY">
+                                <rect key="frame" x="20" y="574" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="PUb-gk-b2m"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="TP8-qp-v1w">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="lnf-gg-to0">
+                            <connections>
+                                <action selector="favoriteButton:" destination="l3h-11-Fz9" id="80P-vz-7zJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="artistNameLabel" destination="WWt-i5-4ld" id="cj6-8k-MJI"/>
+                        <outlet property="podcastGenreLabel" destination="fxF-To-hAY" id="fIx-3s-hp9"/>
+                        <outlet property="podcastImage" destination="lyA-PL-5VH" id="sx0-Cr-1s8"/>
+                        <outlet property="podcastNameLabel" destination="cRq-5V-8ah" id="xe1-CK-6hA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Alh-hY-bnf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3015.9420289855075" y="452.67857142857139"/>
+        </scene>
+        <!--Podcast List-->
         <scene sceneID="HrC-l6-zbu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P3X-hu-Zbe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="RIB-il-Q1Y"/>
+                    <tabBarItem key="tabBarItem" title="Podcast List" image="mic.circle.fill" catalog="system" id="RIB-il-Q1Y"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t2P-j2-2CH">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -82,6 +150,67 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="114.50892857142857"/>
         </scene>
+        <!--Favorites -->
+        <scene sceneID="Abh-si-gd1">
+            <objects>
+                <viewController id="3tb-Np-oMl" customClass="ViewController" customModule="PodcastFavorites_demo_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JiG-xc-9DP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bta-Mq-LY3">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="favoriteCell" rowHeight="147" id="TYx-lI-9tZ" customClass="FavoriteCell" customModule="PodcastFavorites_demo_app" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="147"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TYx-lI-9tZ" id="JIH-uN-kPZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="147"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mic.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Mpd-HB-Q8n">
+                                                    <rect key="frame" x="259" y="7.5" width="147" height="131"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiM-uQ-a3C">
+                                                    <rect key="frame" x="46" y="53" width="205" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGy-J1-4Rw">
+                                                    <rect key="frame" x="46" y="82" width="205" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="podcastImage" destination="Mpd-HB-Q8n" id="bth-ET-Za0"/>
+                                            <outlet property="podcastNameLabel" destination="jiM-uQ-a3C" id="aFx-SV-tGf"/>
+                                            <segue destination="l3h-11-Fz9" kind="show" id="JYl-yu-2zc"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="DtQ-ju-rEe"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Favorites " id="c1Y-uf-hYN"/>
+                    <connections>
+                        <outlet property="tableView" destination="bta-Mq-LY3" id="cVI-Ak-8fF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EhE-6H-Rzz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1957.9710144927537" y="786.83035714285711"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="C3p-ny-UzQ">
             <objects>
@@ -93,11 +222,40 @@
                     </tabBar>
                     <connections>
                         <segue destination="P3X-hu-Zbe" kind="relationship" relationship="viewControllers" id="LB8-ab-eFu"/>
+                        <segue destination="FXY-FZ-cFq" kind="relationship" relationship="viewControllers" id="8bZ-oW-crG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GqT-9i-253" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
+            <point key="canvasLocation" x="93" y="453"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="znI-31-i1x">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FXY-FZ-cFq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="heart.fill" catalog="system" id="rZd-0r-siH"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aDp-sB-CRf">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3tb-Np-oMl" kind="relationship" relationship="rootViewController" id="XYn-23-VOF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uES-Fj-w0N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048" y="787"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart" catalog="system" width="64" height="54"/>
+        <image name="heart.fill" catalog="system" width="64" height="54"/>
+        <image name="mic.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="mic.fill" catalog="system" width="54" height="64"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5L1-d9-3Ex"/>
+    </inferredMetricsTieBreakers>
 </document>
