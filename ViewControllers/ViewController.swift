@@ -22,9 +22,8 @@ class ViewController: UIViewController {
     }
     
     
-    var podcast: Results?
-    
-    var podcastArr = [Results]()
+    var podcast: PodcastModelStruct?
+    var podcastArr = [PodcastModelStruct]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

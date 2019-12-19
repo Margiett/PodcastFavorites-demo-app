@@ -15,8 +15,8 @@ class PodcastDetailsController: UIViewController {
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var podcastGenreLabel: UILabel!
     
-    var podcast: Results?
-    var podcastArr = [Results]()
+    var podcast: PodcastModelStruct?
+    var podcastArr = [PodcastModelStruct]()
     var favorite: Favorite?
     
     var favorited = [Favorite]()

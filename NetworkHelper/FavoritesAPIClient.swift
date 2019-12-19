@@ -19,13 +19,14 @@ struct FavoritesAPIClient {
             return
         }
         
-        //MARK: Covert PostedQuestion to Data
+        //MARK: Coverting to Data
         do {
             let data = try JSONEncoder().encode(favorite)
             //MARK: Confirgure out URLRequest
             // type of url
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
+            // what does this do ???????
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = data
             
@@ -43,14 +44,16 @@ struct FavoritesAPIClient {
             completion(.failure(.decodingError(error)))
         }
     }
-    
-    static func getFaves(completion: @escaping (Result<[Favorite], AppError>) -> () ) {
+    // what is this function doing ????????
+    static func getFaves(
+                         completion: @escaping (Result<[Favorite], AppError>) -> () ) {
         let endpointURL = "https://5c2e2a592fffe80014bd6904.mockapi.io/api/v1/favorites"
         guard let url = URL(string: endpointURL) else {
             completion(.failure(.badURL(endpointURL)))
             return
         }
         let request = URLRequest(url: url)
+        
         NetworkHelper.shared.performDataTask(with: request) { (result) in
             switch result {
             case .failure(let appError):

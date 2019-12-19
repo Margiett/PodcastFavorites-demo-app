@@ -9,7 +9,7 @@
 import Foundation
 
 struct PodcastAPIClient {
-    static func getPodcasts(for search: String, completion: @escaping (Result <[Results], AppError>) -> ()) {
+    static func getPodcasts(for search: String, completion: @escaping (Result <[PodcastModelStruct], AppError>) -> ()) {
         
         
          // this is protecting the user from putting spaces in the url, from which the method addingPercentEncoding() would replace the space with %20. http links cant have empty spaces at all e.g " "
@@ -43,23 +43,23 @@ struct PodcastAPIClient {
             case .success(let data):
                 
                 do{
-                    let podcasts = try JSONDecoder().decode(Podcast.self, from: data)
+                    let podcasts = try JSONDecoder().decode(PodcastSearch.self, from: data)
                     let results = podcasts.results
                     completion(.success(results))
                 }catch{
-                    completion(.failure(.decodingError(error)))
+                    completion(.failure(.decodingError(error))) // this is protection just incase it fails this code would be activated
                 }
             }
         }
     }
-    static func getID(for trackId: Int, completion: @escaping (Result<[Results], AppError>) -> () ) {
+    static func getID(for trackId: Int, completion: @escaping (Result<[PodcastModelStruct], AppError>) -> () ) {
         
         let endpointURL = "https://itunes.apple.com/search?media=podcast&limit=200&term=\(trackId)"
       
         
         //MARK: Create a url
         guard let url = URL(string: endpointURL) else {
-            completion(.failure(.badURL(endpointURL)))
+            completion(.failure(.badURL(endpointURL))) // this is not needed only if it fails 
             return
         }
       //MARK: Confirgure out URLRequest
@@ -76,7 +76,7 @@ struct PodcastAPIClient {
                 completion(.failure(.networkClientError(appError)))
             case .success(let data):
                 do{
-                    let podcasts = try JSONDecoder().decode(Podcast.self, from: data)
+                    let podcasts = try JSONDecoder().decode(PodcastSearch.self, from: data)
                     let results = podcasts.results
                     completion(.success(results))
                 } catch {
@@ -85,7 +85,7 @@ struct PodcastAPIClient {
             }
         }
     }
-    static func postPodcast(post: Podcast) {
+    static func postPodcast(post: PodcastSearch) {
         
     }
 }
